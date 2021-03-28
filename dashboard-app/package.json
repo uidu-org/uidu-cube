@@ -25,6 +25,9 @@
     "react-scripts": "4.0.3",
     "recharts": "^2.0.0-beta.8"
   },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  },
   "cubejsTemplates": {
     "create-react-app": "0.0.1",
     "react-antd-dynamic": "0.0.1",
