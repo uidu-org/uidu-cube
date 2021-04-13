@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 cube('Contacts', {
   sql: 'SELECT * FROM contacts',
 
@@ -5,6 +7,11 @@ cube('Contacts', {
     Donations: {
       relationship: 'hasMany',
       sql: `${Contacts}.id = ${Donations}.contact_id`,
+    },
+
+    Subscriptions: {
+      relationship: 'hasMany',
+      sql: `${Contacts}.id = ${Subscriptions}.contact_id`,
     },
 
     Orders: {
@@ -16,45 +23,11 @@ cube('Contacts', {
   measures: {
     count: {
       type: 'count',
-      drillMembers: [
-        createdByType,
-        displayName,
-        firstName,
-        id,
-        lastName,
-        stripeCustomerId,
-        createdAt,
-        updatedAt,
-      ],
-    },
-
-    applicationsCount: {
-      sql: 'applications_count',
-      type: 'sum',
-    },
-
-    attendancesCount: {
-      sql: 'attendances_count',
-      type: 'sum',
-    },
-
-    commentsCount: {
-      sql: 'comments_count',
-      type: 'sum',
-    },
-
-    donationsCount: {
-      sql: 'donations_count',
-      type: 'sum',
+      drillMembers: [id, stripeId, createdAt, updatedAt],
     },
 
     signInCount: {
       sql: 'sign_in_count',
-      type: 'sum',
-    },
-
-    taxReturnCampaignGiversCount: {
-      sql: 'tax_return_campaign_givers_count',
       type: 'sum',
     },
   },
@@ -71,16 +44,6 @@ cube('Contacts', {
       subQuery: true,
     },
 
-    cachedContactGroupList: {
-      sql: 'cached_contact_group_list',
-      type: 'string',
-    },
-
-    cachedContactTagList: {
-      sql: 'cached_contact_tag_list',
-      type: 'string',
-    },
-
     createdByType: {
       sql: 'created_by_type',
       type: 'string',
@@ -91,31 +54,11 @@ cube('Contacts', {
       type: 'string',
     },
 
-    displayName: {
-      sql: 'display_name',
-      type: 'string',
-    },
-
-    email: {
-      sql: 'email',
-      type: 'string',
-    },
-
-    firstName: {
-      sql: 'first_name',
-      type: 'string',
-    },
-
     id: {
       shown: true,
       sql: 'id',
       type: 'number',
       primaryKey: true,
-    },
-
-    lastName: {
-      sql: 'last_name',
-      type: 'string',
     },
 
     lastSignInIp: {
@@ -133,18 +76,13 @@ cube('Contacts', {
       type: 'string',
     },
 
-    stripeCustomerId: {
-      sql: 'stripe_customer_id',
+    stripeId: {
+      sql: 'stripe_id',
       type: 'string',
     },
 
     summary: {
       sql: 'summary',
-      type: 'string',
-    },
-
-    type: {
-      sql: 'type',
       type: 'string',
     },
 
