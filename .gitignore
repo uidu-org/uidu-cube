@@ -1,4 +1,5 @@
 .env
-node_modules
+.DS_Store
 .cubestore
+node_modules
 upstream
