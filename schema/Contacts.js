@@ -1,22 +1,37 @@
 /* eslint-disable no-undef */
 
 cube('Contacts', {
-  sql: 'SELECT * FROM contacts',
+  sql: `SELECT * FROM contacts`,
 
   joins: {
     Donations: {
       relationship: 'hasMany',
-      sql: `${Contacts}.id = ${Donations}.contact_id`,
+      sql: `${CUBE}.id = ${Donations}.contact_id`,
     },
 
     Subscriptions: {
       relationship: 'hasMany',
-      sql: `${Contacts}.id = ${Subscriptions}.contact_id`,
+      sql: `${CUBE}.id = ${Subscriptions}.contact_id`,
     },
 
     Orders: {
       relationship: 'hasMany',
-      sql: `${Contacts}.id = ${Orders}.contact_id`,
+      sql: `${CUBE}.id = ${Orders}.contact_id`,
+    },
+
+    Organizations: {
+      relationship: 'hasOne',
+      sql: `${CUBE}.contactable_id = ${Organizations}.id AND ${CUBE}.contactable_type = 'Organization'`,
+    },
+
+    Users: {
+      relationship: 'hasOne',
+      sql: `${CUBE}.contactable_id = ${Users}.id AND ${CUBE}.contactable_type = 'User'`,
+    },
+
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
     },
   },
 
@@ -33,6 +48,22 @@ cube('Contacts', {
   },
 
   dimensions: {
+    id: {
+      shown: true,
+      sql: 'id',
+      type: 'number',
+      primaryKey: true,
+    },
+
+    avatar: {
+      sql: `CONCAT('https://uidu.local:8443/uploads/', ${CUBE}.avatar_data->>"$.derivatives.small.id")`,
+      type: 'string',
+      format: 'imageUrl',
+      meta: {
+        kind: 'avatar',
+      },
+    },
+
     avatarData: {
       sql: 'avatar_data',
       type: 'string',
@@ -52,13 +83,6 @@ cube('Contacts', {
     currentSignInIp: {
       sql: 'current_sign_in_ip',
       type: 'string',
-    },
-
-    id: {
-      shown: true,
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
     },
 
     lastSignInIp: {

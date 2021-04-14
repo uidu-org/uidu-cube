@@ -1,7 +1,12 @@
 cube('Forms', {
   sql: 'SELECT * FROM forms',
 
-  joins: {},
+  joins: {
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
+  },
 
   measures: {
     count: {

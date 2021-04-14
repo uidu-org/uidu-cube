@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 
 cube('Users', {
-  sql: 'SELECT * FROM users',
+  sql: `SELECT * FROM users`,
+
+  extends: ActiveRecordModels,
 
   joins: {
     Contacts: {
@@ -10,29 +12,18 @@ cube('Users', {
     },
   },
 
-  measures: {
-    count: {
-      type: 'count',
-      drillMembers: [id, createdAt, updatedAt],
-    },
-  },
-
   dimensions: {
+    id: {
+      shown: true,
+      sql: `${CUBE}.id`,
+      type: 'number',
+      primaryKey: true,
+    },
+
     donationsAmount: {
       sql: `${Donations.totalAmount}`,
       type: 'number',
       subQuery: true,
-    },
-
-    id: {
-      shown: true,
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
-      meta: {
-        kind: 'uid',
-        primary: true,
-      },
     },
 
     avatar: {
@@ -67,21 +58,14 @@ cube('Users', {
         kind: 'string',
       },
     },
+  },
 
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-      meta: {
-        kind: 'date',
-      },
+  segments: {
+    people: {
+      sql: `${CUBE}.kind = 1`,
     },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
-      meta: {
-        kind: 'date',
-      },
+    leads: {
+      sql: `${CUBE}.kind = 0`,
     },
   },
 });

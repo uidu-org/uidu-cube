@@ -11,6 +11,11 @@ cube(`Products`, {
       sql: `${CUBE}.id = ${Plans}.product_id`,
       relationship: `hasMany`,
     },
+
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
   },
 
   measures: {

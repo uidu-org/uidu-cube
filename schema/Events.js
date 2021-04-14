@@ -2,7 +2,12 @@
 cube('Events', {
   sql: 'SELECT * FROM events',
 
-  joins: {},
+  joins: {
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
+  },
 
   measures: {
     count: {

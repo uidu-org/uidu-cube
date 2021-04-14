@@ -12,6 +12,11 @@ cube('DonationCampaigns', {
       sql: `${CUBE}.id = ${Donations}.donation_campaign_id`,
       relationship: 'hasMany',
     },
+
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
   },
 
   measures: {
