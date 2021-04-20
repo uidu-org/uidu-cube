@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 cube('Users', {
-  sql: `SELECT * FROM users`,
+  sql: 'SELECT * FROM users',
 
   extends: ActiveRecordModels,
 
@@ -9,6 +9,13 @@ cube('Users', {
     Contacts: {
       relationship: 'hasOne',
       sql: `${Users}.id = ${Contacts}.contactable_id AND ${Contacts}.contactable_type = 'User'`,
+    },
+  },
+
+  measures: {
+    count: {
+      sql: 'id',
+      type: 'count',
     },
   },
 

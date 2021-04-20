@@ -2,6 +2,8 @@
 cube('DonationCampaigns', {
   sql: 'SELECT * FROM donation_campaigns',
 
+  extends: ActiveRecordModels,
+
   joins: {
     Products: {
       sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCamapaign'`,
@@ -47,16 +49,19 @@ cube('DonationCampaigns', {
       type: 'string',
     },
 
-    cover: {
-      sql: `CONCAT('https://uidu.local:8443/uploads/', ${CUBE}.cover_data->>"$.derivatives.small.id")`,
-      type: 'string',
-      format: 'imageUrl',
-    },
-
     id: {
       sql: 'id',
       type: 'number',
       primaryKey: true,
+    },
+
+    cover: {
+      sql: `CONCAT('https://uidu.local:8443/uploads/', ${CUBE}.cover_data->>"$.derivatives.small.id")`,
+      type: 'string',
+      format: 'imageUrl',
+      meta: {
+        kind: 'cover',
+      },
     },
 
     name: {
@@ -72,6 +77,9 @@ cube('DonationCampaigns', {
     goal: {
       sql: 'goal',
       type: 'number',
+      meta: {
+        kind: 'currency',
+      },
     },
 
     currency: {
@@ -89,16 +97,6 @@ cube('DonationCampaigns', {
         ],
         else: { label: 'Unknown' },
       },
-    },
-
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-    },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
     },
 
     finishesAt: {

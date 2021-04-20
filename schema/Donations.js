@@ -15,15 +15,16 @@ cube(`Donations`, {
       relationship: `belongsTo`,
     },
 
-    OrderItems: {
-      sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
-      relationship: `belongsTo`,
-    },
+    // OrderItems: {
+    //   sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
+    //   relationship: `belongsTo`,
+    // },
 
-    SubscriptionItems: {
-      sql: `${CUBE}.subscription_item_id = ${SubscriptionItems}.id`,
-      relationship: `belongsTo`,
-    },
+    // TODO: this breaks memberships subscriptions
+    // SubscriptionItems: {
+    //   sql: `${CUBE}.subscription_item_id = ${SubscriptionItems}.id`,
+    //   relationship: `belongsTo`,
+    // },
   },
 
   measures: {

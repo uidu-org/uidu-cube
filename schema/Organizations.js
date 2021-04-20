@@ -3,7 +3,14 @@
 cube('Organizations', {
   sql: 'SELECT * FROM organizations',
 
+  extends: ActiveRecordModels,
+
   joins: {
+    Contacts: {
+      relationship: 'hasOne',
+      sql: `${Organizations}.id = ${Contacts}.contactable_id AND ${Contacts}.contactable_type = 'Organization'`,
+    },
+
     Workspaces: {
       sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
       relationship: 'belongsTo',
@@ -44,6 +51,15 @@ cube('Organizations', {
       primaryKey: true,
     },
 
+    avatar: {
+      sql: `CONCAT('https://uidu.local:8443/uploads/', ${Contacts}.avatar_data->>"$.derivatives.small.id")`,
+      type: 'string',
+      format: 'imageUrl',
+      meta: {
+        kind: 'avatar',
+      },
+    },
+
     name: {
       sql: 'name',
       type: 'string',
@@ -73,17 +89,5 @@ cube('Organizations', {
       sql: 'website',
       type: 'string',
     },
-
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-    },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
-    },
   },
-
-  dataSource: 'default',
 });

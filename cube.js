@@ -6,7 +6,7 @@ module.exports = {
     },
   },
   queryTransformer: (query, { securityContext }) => {
-    if (securityContext.workspace_id) {
+    if (securityContext && securityContext.workspace_id) {
       query.filters.push({
         member: 'Workspaces.id',
         operator: 'equals',
