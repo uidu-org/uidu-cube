@@ -75,11 +75,6 @@ cube('Contacts', {
       subQuery: true,
     },
 
-    createdByType: {
-      sql: 'created_by_type',
-      type: 'string',
-    },
-
     currentSignInIp: {
       sql: 'current_sign_in_ip',
       type: 'string',

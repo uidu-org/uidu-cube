@@ -5,13 +5,13 @@ cube('DonationCampaigns', {
   extends: ActiveRecordModels,
 
   joins: {
-    Products: {
-      sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCamapaign'`,
+    Donations: {
+      sql: `${CUBE}.id = ${Donations}.donation_campaign_id`,
       relationship: 'hasMany',
     },
 
-    Donations: {
-      sql: `${CUBE}.id = ${Donations}.donation_campaign_id`,
+    Products: {
+      sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCamapaign'`,
       relationship: 'hasMany',
     },
 
@@ -24,35 +24,26 @@ cube('DonationCampaigns', {
   measures: {
     count: {
       type: 'count',
-      drillMembers: [id, name, createdAt, updatedAt],
-    },
-
-    donationsAmount: {
-      sql: 'donations_amount',
-      type: 'sum',
-    },
-
-    donationsCount: {
-      sql: 'donations_count',
-      type: 'sum',
-    },
-
-    viewsCount: {
-      sql: 'views_count',
-      type: 'sum',
+      sql: 'id',
     },
   },
 
   dimensions: {
-    category: {
-      sql: 'category',
-      type: 'string',
-    },
-
     id: {
       sql: 'id',
       type: 'number',
       primaryKey: true,
+      shown: true,
+    },
+
+    donationId: {
+      sql: `donation_id`,
+      type: `number`,
+    },
+
+    category: {
+      sql: 'category',
+      type: 'string',
     },
 
     cover: {

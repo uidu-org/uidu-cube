@@ -4,6 +4,8 @@
 cube(`Donations`, {
   sql: `SELECT * FROM donations`,
 
+  extends: ActiveRecordModels,
+
   joins: {
     DonationCampaigns: {
       sql: `${CUBE}.donation_campaign_id = ${DonationCampaigns}.id`,
@@ -30,14 +32,14 @@ cube(`Donations`, {
   measures: {
     count: {
       type: `count`,
-      drillMembers: [id, createdAt, updatedAt, paidAt],
+      sql: 'id',
       meta: {
         kind: 'number',
       },
     },
 
     totalAmount: {
-      sql: `${CUBE}.amount / 100.0`,
+      sql: `amount`,
       type: `sum`,
       format: `currency`,
       meta: {
@@ -46,7 +48,7 @@ cube(`Donations`, {
     },
 
     average: {
-      sql: `${CUBE}.amount / 100.0`,
+      sql: 'amount',
       type: `avg`,
       format: `currency`,
       meta: {
@@ -55,7 +57,7 @@ cube(`Donations`, {
     },
 
     max: {
-      sql: `${CUBE}.amount / 100.0`,
+      sql: 'amount',
       type: 'max',
       format: `currency`,
       meta: {
@@ -90,12 +92,17 @@ cube(`Donations`, {
     },
 
     amount: {
-      sql: `${CUBE}.amount / 100.0`,
+      sql: 'amount',
       type: `number`,
       format: `currency`,
       meta: {
         kind: 'currency',
       },
+    },
+
+    donationCampaignId: {
+      sql: 'donation_campaign_id',
+      type: 'number',
     },
 
     paymentMethod: {
@@ -109,27 +116,6 @@ cube(`Donations`, {
           { sql: `${CUBE}.payment_method IS NULL`, label: `Credit Card` },
         ],
         else: { label: `Unknown` },
-      },
-    },
-
-    preferences: {
-      sql: `preferences`,
-      type: `string`,
-    },
-
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
-      meta: {
-        kind: 'date',
-      },
-    },
-
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
-      meta: {
-        kind: 'date',
       },
     },
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Users', {
   sql: 'SELECT * FROM users',
@@ -22,7 +23,7 @@ cube('Users', {
   dimensions: {
     id: {
       shown: true,
-      sql: `${CUBE}.id`,
+      sql: `${toGlobalId('User', 'users.id')}`,
       type: 'number',
       primaryKey: true,
     },
