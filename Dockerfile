@@ -1,3 +1,3 @@
-FROM cubejs/cube:v0.26.71
+FROM cubejs/cube:v0.26.102
 
 COPY . .
