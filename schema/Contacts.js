@@ -56,7 +56,7 @@ cube('Contacts', {
     },
 
     avatar: {
-      sql: `CONCAT('https://uidu.local:8443/uploads/', ${CUBE}.avatar_data->>"$.derivatives.small.id")`,
+      sql: `CONCAT('${SECURITY_CONTEXT.asset_url.unsafeValue()}', ${CUBE}.avatar_data->>"$.derivatives.small.id")`,
       type: 'string',
       format: 'imageUrl',
       meta: {

@@ -47,7 +47,7 @@ cube('DonationCampaigns', {
     },
 
     cover: {
-      sql: `CONCAT('https://uidu.local:8443/uploads/', ${CUBE}.cover_data->>"$.derivatives.small.id")`,
+      sql: `CONCAT('${SECURITY_CONTEXT.asset_url.unsafeValue()}', ${CUBE}.cover_data->>"$.derivatives.small.id")`,
       type: 'string',
       format: 'imageUrl',
       meta: {
