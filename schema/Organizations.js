@@ -52,7 +52,7 @@ cube('Organizations', {
     },
 
     avatar: {
-      sql: `CONCAT('${SECURITY_CONTEXT.asset_url.unsafeValue()}', ${Contacts}.avatar_data->>"$.derivatives.small.id")`,
+      sql: `${Contacts}.avatar_data->>"$.derivatives.small.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {

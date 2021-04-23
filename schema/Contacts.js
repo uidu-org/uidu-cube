@@ -56,7 +56,7 @@ cube('Contacts', {
     },
 
     avatar: {
-      sql: `CONCAT('${SECURITY_CONTEXT.asset_url.unsafeValue()}', ${CUBE}.avatar_data->>"$.derivatives.small.id")`,
+      sql: `${CUBE}.avatar_data->>"$.derivatives.small.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {
