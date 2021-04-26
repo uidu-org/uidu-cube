@@ -11,16 +11,16 @@ cube('Organizations', {
       sql: `${Organizations}.id = ${Contacts}.contactable_id AND ${Contacts}.contactable_type = 'Organization'`,
     },
 
-    Workspaces: {
-      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
-      relationship: 'belongsTo',
-    },
+    // Workspaces: {
+    //   sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    //   relationship: 'belongsTo',
+    // },
   },
 
   measures: {
     count: {
+      sql: 'id',
       type: 'count',
-      drillMembers: [id, name, shortname, createdAt, updatedAt],
     },
   },
 
@@ -49,6 +49,7 @@ cube('Organizations', {
       sql: 'id',
       type: 'number',
       primaryKey: true,
+      shown: true,
     },
 
     avatar: {
