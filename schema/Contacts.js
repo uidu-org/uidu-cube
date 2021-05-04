@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
 
 cube('Contacts', {
-  sql: `SELECT * FROM contacts`,
+  sql: 'SELECT * FROM contacts',
 
   joins: {
+    Addresses: {
+      relationship: 'hasMany',
+      sql: `${CUBE}.id = ${Addresses}.addressable_id AND ${Addresses}.addressable_type = "User"`,
+    },
+
     Donations: {
       relationship: 'hasMany',
       sql: `${CUBE}.id = ${Donations}.contact_id`,

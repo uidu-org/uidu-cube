@@ -1,15 +1,17 @@
-cube(`Products`, {
-  sql: `SELECT * FROM products`,
+/* eslint-disable no-undef */
+
+cube('Products', {
+  sql: 'SELECT * FROM products',
 
   joins: {
     Skus: {
       sql: `${CUBE}.id = ${Skus}.product_id`,
-      relationship: `hasMany`,
+      relationship: 'hasMany',
     },
 
     Plans: {
       sql: `${CUBE}.id = ${Plans}.product_id`,
-      relationship: `hasMany`,
+      relationship: 'hasMany',
     },
 
     Workspaces: {
@@ -20,71 +22,71 @@ cube(`Products`, {
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, name, stripeId, createdByType, createdAt, updatedAt],
     },
   },
 
   dimensions: {
     id: {
-      sql: `id`,
-      type: `number`,
+      sql: 'id',
+      type: 'number',
       primaryKey: true,
     },
 
     productableType: {
-      sql: `productable_type`,
-      type: `string`,
+      sql: 'productable_type',
+      type: 'string',
     },
 
     name: {
-      sql: `name`,
-      type: `string`,
+      sql: 'name',
+      type: 'string',
     },
 
     description: {
-      sql: `description`,
-      type: `string`,
+      sql: 'description',
+      type: 'string',
     },
 
     stripeId: {
-      sql: `stripe_id`,
-      type: `string`,
+      sql: 'stripe_id',
+      type: 'string',
     },
 
     stripeStatementDescriptor: {
-      sql: `stripe_statement_descriptor`,
-      type: `string`,
+      sql: 'stripe_statement_descriptor',
+      type: 'string',
     },
 
     stripePackageDimensions: {
-      sql: `stripe_package_dimensions`,
-      type: `string`,
+      sql: 'stripe_package_dimensions',
+      type: 'string',
     },
 
     stripeAttributes: {
-      sql: `stripe_attributes`,
-      type: `string`,
+      sql: 'stripe_attributes',
+      type: 'string',
     },
 
     preferences: {
-      sql: `preferences`,
-      type: `string`,
+      sql: 'preferences',
+      type: 'string',
     },
 
     createdByType: {
-      sql: `created_by_type`,
-      type: `string`,
+      sql: 'created_by_type',
+      type: 'string',
     },
 
     createdAt: {
-      sql: `created_at`,
-      type: `time`,
+      sql: 'created_at',
+      type: 'time',
     },
 
     updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
+      sql: 'updated_at',
+      type: 'time',
     },
   },
 });
