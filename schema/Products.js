@@ -89,4 +89,22 @@ cube('Products', {
       type: 'time',
     },
   },
+
+  segments: {
+    membership: {
+      sql: `${CUBE}.kind = 0`,
+    },
+    donation: {
+      sql: `${CUBE}.kind = 1`,
+    },
+    good: {
+      sql: `${CUBE}.kind = 2`,
+    },
+    ticket: {
+      sql: `${CUBE}.kind = 3`,
+    },
+    service: {
+      sql: `${CUBE}.kind = 4`,
+    },
+  },
 });
