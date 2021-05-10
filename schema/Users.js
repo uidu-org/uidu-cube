@@ -24,7 +24,7 @@ cube('Users', {
     id: {
       shown: true,
       sql: `${toGlobalId('User', 'users.id')}`,
-      type: 'number',
+      type: 'string',
       primaryKey: true,
     },
 
@@ -35,7 +35,7 @@ cube('Users', {
     },
 
     avatar: {
-      sql: `${Contacts}.avatar_data->>"$.derivatives.small.id"`,
+      sql: `${Contacts}.avatar_data->>"$.derivatives.xsmall.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {
@@ -44,7 +44,7 @@ cube('Users', {
     },
 
     email: {
-      sql: 'email',
+      sql: `${Contacts}.email`,
       type: 'string',
       meta: {
         kind: 'email',
@@ -64,6 +64,18 @@ cube('Users', {
       type: 'string',
       meta: {
         kind: 'string',
+      },
+    },
+
+    gender: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.gender = 1`, label: 'female' },
+          { sql: `${CUBE}.gender = 0`, label: 'male' },
+          { sql: `${CUBE}.gender IS NULL`, label: 'null' },
+        ],
+        else: { label: 'Unknown' },
       },
     },
   },

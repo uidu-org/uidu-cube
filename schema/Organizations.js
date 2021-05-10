@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Organizations', {
   sql: 'SELECT * FROM organizations',
@@ -25,31 +26,29 @@ cube('Organizations', {
   },
 
   dimensions: {
+    id: {
+      shown: true,
+      sql: `${toGlobalId('Organization', 'organizations.id')}`,
+      type: 'string',
+      primaryKey: true,
+    },
+
     bio: {
       sql: 'bio',
       type: 'string',
     },
 
     email: {
-      sql: 'email',
+      sql: `${Contacts}.email`,
       type: 'string',
-    },
-
-    fax: {
-      sql: 'fax',
-      type: 'string',
+      meta: {
+        kind: 'email',
+      },
     },
 
     fiscalCode: {
       sql: 'fiscal_code',
       type: 'string',
-    },
-
-    id: {
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
-      shown: true,
     },
 
     avatar: {
@@ -67,7 +66,7 @@ cube('Organizations', {
     },
 
     phone: {
-      sql: 'phone',
+      sql: `${Contacts}.phone`,
       type: 'string',
     },
 

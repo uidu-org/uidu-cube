@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Contacts', {
   sql: 'SELECT * FROM contacts',
@@ -6,7 +7,7 @@ cube('Contacts', {
   joins: {
     Addresses: {
       relationship: 'hasMany',
-      sql: `${CUBE}.id = ${Addresses}.addressable_id AND ${Addresses}.addressable_type = "User"`,
+      sql: `${Addresses}.addressable_id = ${CUBE}.id AND ${Addresses}.addressable_type = 'Contact'`,
     },
 
     Donations: {
@@ -55,8 +56,8 @@ cube('Contacts', {
   dimensions: {
     id: {
       shown: true,
-      sql: 'id',
-      type: 'number',
+      sql: `${toGlobalId('Contact', 'contacts.id')}`,
+      type: 'string',
       primaryKey: true,
     },
 
@@ -66,6 +67,14 @@ cube('Contacts', {
       format: 'imageUrl',
       meta: {
         kind: 'avatar',
+      },
+    },
+
+    email: {
+      sql: 'email',
+      type: 'string',
+      meta: {
+        kind: 'email',
       },
     },
 
