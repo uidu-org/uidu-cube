@@ -1,75 +1,61 @@
-cube(`EventInstances`, {
-  sql: `SELECT * FROM event_instances`,
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
+
+cube('EventInstances', {
+  sql: 'SELECT * FROM event_instances',
+
+  extends: ActiveRecordModels,
 
   joins: {
     Events: {
       sql: `${CUBE}.event_id = ${Events}.id`,
-      relationship: `belongsTo`,
+      relationship: 'belongsTo',
     },
   },
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, createdAt, updatedAt],
     },
   },
 
   dimensions: {
-    beginTime: {
-      sql: `begin_time`,
-      type: `string`,
-    },
-
-    endTime: {
-      sql: `end_time`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('EventInstance', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
+    beginTime: {
+      sql: 'begin_time',
+      type: 'string',
     },
 
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
+    endTime: {
+      sql: 'end_time',
+      type: 'string',
     },
 
     beginsAt: {
-      sql: `begins_at`,
-      type: `time`,
+      sql: 'begins_at',
+      type: 'time',
     },
 
     cancelledAt: {
-      sql: `cancelled_at`,
-      type: `time`,
+      sql: 'cancelled_at',
+      type: 'time',
     },
 
     finishesAt: {
-      sql: `finishes_at`,
-      type: `time`,
-    },
-
-    oldBeginsAt: {
-      sql: `old_begins_at`,
-      type: `time`,
-    },
-
-    oldFinishesAt: {
-      sql: `old_finishes_at`,
-      type: `time`,
+      sql: 'finishes_at',
+      type: 'time',
     },
 
     postponedAt: {
-      sql: `postponed_at`,
-      type: `time`,
+      sql: 'postponed_at',
+      type: 'time',
     },
   },
 });

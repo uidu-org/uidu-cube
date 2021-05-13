@@ -1,60 +1,56 @@
-cube(`Orders`, {
-  sql: `SELECT * FROM orders`,
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
+
+cube('Orders', {
+  sql: 'SELECT * FROM orders',
+
+  extends: ActiveRecordModels,
 
   joins: {
     Contacts: {
       sql: `${CUBE}.contact_id = ${Contacts}.id`,
-      relationship: `belongsTo`,
+      relationship: 'belongsTo',
     },
 
     OrderItems: {
       sql: `${CUBE}.id = ${OrderItems}.order_id`,
-      relationship: `hasMany`,
+      relationship: 'hasMany',
     },
   },
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, createdAt, updatedAt],
     },
 
     orderItemsCount: {
-      sql: `items_count`,
-      type: `sum`,
+      sql: 'items_count',
+      type: 'sum',
     },
 
     orderItemsTotal: {
-      sql: `items_total`,
-      type: `sum`,
+      sql: 'items_total',
+      type: 'sum',
     },
 
     stripeAmount: {
-      sql: `amount`,
-      type: `sum`,
+      sql: 'amount',
+      type: 'sum',
     },
   },
 
   dimensions: {
-    currency: {
-      sql: `currency`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('Order', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
-    },
-
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
+    currency: {
+      sql: 'currency',
+      type: 'string',
     },
   },
 });

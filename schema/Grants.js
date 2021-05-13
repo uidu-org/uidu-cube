@@ -1,85 +1,112 @@
-cube(`Grants`, {
-  sql: `SELECT * FROM grants`,
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
-  joins: {},
+cube('Grants', {
+  sql: 'SELECT * FROM grants',
+
+  extends: ActiveRecordModels,
+
+  joins: {
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
+
+    GrantMakers: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.grant_maker_id = ${GrantMakers}.id`,
+    },
+
+    GrantCompetences: {
+      relationship: 'hasMany',
+      sql: `${CUBE}.id = ${GrantCompetences}.competent_id AND ${GrantCompetences}.competent_type = 'Grant'`,
+    },
+  },
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, name, createdAt, updatedAt],
     },
   },
 
   dimensions: {
-    abstract: {
-      sql: `abstract`,
-      type: `string`,
-    },
-
-    bodyData: {
-      sql: `body_data`,
-      type: `string`,
-    },
-
-    cachedGrantSectorList: {
-      sql: `cached_grant_sector_list`,
-      type: `string`,
-    },
-
-    cachedGrantTagList: {
-      sql: `cached_grant_tag_list`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('Grant', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
-    name: {
-      sql: `name`,
-      type: `string`,
+    bodyData: {
+      sql: 'body_data',
+      type: 'string',
     },
 
-    submitterType: {
-      sql: `submitter_type`,
-      type: `string`,
+    name: {
+      sql: 'name',
+      type: 'string',
     },
 
     website: {
-      sql: `website`,
-      type: `string`,
+      sql: 'website',
+      type: 'string',
     },
 
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
+    coverage: {
+      sql: 'coverage',
+      type: 'number',
     },
 
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
+    budget: {
+      sql: 'budget',
+      type: 'number',
+    },
+
+    contributionMin: {
+      sql: 'contribution_min',
+      type: 'number',
+    },
+
+    contributionMax: {
+      sql: 'contribution_max',
+      type: 'number',
+    },
+
+    kind: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.kind = 1`, label: 'contribution' },
+          { sql: `${CUBE}.kind = 0`, label: 'grant' },
+          { sql: `${CUBE}.kind IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
+      },
     },
 
     expiresAt: {
-      sql: `expires_at`,
-      type: `time`,
+      sql: 'expires_at',
+      type: 'time',
+      meta: {
+        kind: 'date',
+      },
     },
 
     publishedAt: {
-      sql: `published_at`,
-      type: `time`,
-    },
-
-    submittedAt: {
-      sql: `submitted_at`,
-      type: `time`,
+      sql: 'published_at',
+      type: 'time',
+      meta: {
+        kind: 'date',
+      },
     },
 
     synchedAt: {
-      sql: `synched_at`,
-      type: `time`,
+      sql: 'synched_at',
+      type: 'time',
+      meta: {
+        kind: 'date',
+      },
     },
   },
 });

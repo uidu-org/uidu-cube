@@ -28,7 +28,7 @@ cube('Organizations', {
   dimensions: {
     id: {
       shown: true,
-      sql: `${toGlobalId('Organization', 'organizations.id')}`,
+      sql: `${toGlobalId('Organization', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
     },

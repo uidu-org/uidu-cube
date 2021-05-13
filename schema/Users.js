@@ -23,7 +23,7 @@ cube('Users', {
   dimensions: {
     id: {
       shown: true,
-      sql: `${toGlobalId('User', 'users.id')}`,
+      sql: `${toGlobalId('User', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
     },
@@ -35,7 +35,7 @@ cube('Users', {
     },
 
     avatar: {
-      sql: `${Contacts}.avatar_data->>"$.derivatives.xsmall.id"`,
+      sql: `${Contacts}.avatar_data->>"$.derivatives.small.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {

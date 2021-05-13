@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { toGlobalId } from './utils';
 
-cube('Events', {
-  sql: 'SELECT * FROM events',
+cube('Proposals', {
+  sql: 'SELECT * FROM proposals',
 
   extends: ActiveRecordModels,
 
@@ -10,11 +10,6 @@ cube('Events', {
     Workspaces: {
       relationship: 'belongsTo',
       sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
-    },
-
-    EventInstances: {
-      relationship: 'hasMany',
-      sql: `${EventInstances}.event_id = ${CUBE}.id`,
     },
   },
 
@@ -28,28 +23,29 @@ cube('Events', {
   dimensions: {
     id: {
       shown: true,
-      sql: `${toGlobalId('Event', `${CUBE}.id`)}`,
+      sql: `${toGlobalId('Proposal', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
     },
 
-    cover: {
-      sql: `${CUBE}.cover_data->>"$.derivatives.small.id"`,
+    description: {
+      sql: 'description',
       type: 'string',
-      format: 'imageUrl',
-      meta: {
-        kind: 'cover',
-      },
+    },
+
+    estimatedCost: {
+      sql: 'estimated_cost',
+      type: 'number',
+    },
+
+    goal: {
+      sql: 'goal',
+      type: 'number',
     },
 
     name: {
       sql: 'name',
       type: 'string',
-    },
-
-    publishedAt: {
-      sql: 'published_at',
-      type: 'time',
     },
   },
 });

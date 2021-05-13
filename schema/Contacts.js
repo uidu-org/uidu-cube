@@ -56,7 +56,7 @@ cube('Contacts', {
   dimensions: {
     id: {
       shown: true,
-      sql: `${toGlobalId('Contact', 'contacts.id')}`,
+      sql: `${toGlobalId('Contact', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
     },
@@ -75,6 +75,23 @@ cube('Contacts', {
       type: 'string',
       meta: {
         kind: 'email',
+      },
+    },
+
+    name: {
+      type: 'string',
+      case: {
+        when: [
+          {
+            sql: `${CUBE}.contactable_type = 'User'`,
+            label: { sql: `${Users}.first_name` },
+          },
+          {
+            sql: `${CUBE}.contactable_type = 'Organization'`,
+            label: { sql: `${Organizations}.name` },
+          },
+        ],
+        else: { label: 'Unknown' },
       },
     },
 

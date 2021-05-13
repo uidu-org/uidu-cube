@@ -36,11 +36,6 @@ cube('DonationCampaigns', {
       shown: true,
     },
 
-    donationId: {
-      sql: `donation_id`,
-      type: `number`,
-    },
-
     category: {
       sql: 'category',
       type: 'string',

@@ -1,5 +1,10 @@
-cube(`Calls`, {
-  sql: `SELECT * FROM calls`,
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
+
+cube('Calls', {
+  sql: 'SELECT * FROM calls',
+
+  extends: ActiveRecordModels,
 
   joins: {
     Workspaces: {
@@ -10,76 +15,51 @@ cube(`Calls`, {
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, name, createdAt, updatedAt],
     },
 
     applicationsCount: {
-      sql: `applications_count`,
-      type: `sum`,
+      sql: 'applications_count',
+      type: 'sum',
     },
   },
 
   dimensions: {
-    bodyData: {
-      sql: `body_data`,
-      type: `string`,
-    },
-
-    callableType: {
-      sql: `callable_type`,
-      type: `string`,
-    },
-
-    callerType: {
-      sql: `caller_type`,
-      type: `string`,
-    },
-
-    coverData: {
-      sql: `cover_data`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('Call', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
-    name: {
-      sql: `name`,
-      type: `string`,
+    cover: {
+      sql: `${CUBE}.cover_data->>"$.derivatives.small.id"`,
+      type: 'string',
+      format: 'imageUrl',
+      meta: {
+        kind: 'cover',
+      },
     },
 
-    preferences: {
-      sql: `preferences`,
-      type: `string`,
+    name: {
+      sql: 'name',
+      type: 'string',
     },
 
     type: {
-      sql: `type`,
-      type: `string`,
-    },
-
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
-    },
-
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
+      sql: 'type',
+      type: 'string',
     },
 
     expiresAt: {
-      sql: `expires_at`,
-      type: `time`,
+      sql: 'expires_at',
+      type: 'time',
     },
 
     publishedAt: {
-      sql: `published_at`,
-      type: `time`,
+      sql: 'published_at',
+      type: 'time',
     },
   },
 });
