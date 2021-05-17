@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
   cube:
-    image: cubejs/cube:v0.26.71
+    image: cubejs/cube:v0.27.14
     ports:
       # It's better to use random port binding for 4000/3000 ports
       # without it you will not able to start multiple projects inside docker

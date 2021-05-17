@@ -4,6 +4,8 @@ import { toGlobalId } from './utils';
 cube('Contacts', {
   sql: 'SELECT * FROM contacts',
 
+  extends: ActiveRecordModels,
+
   joins: {
     Addresses: {
       relationship: 'hasMany',
@@ -28,6 +30,11 @@ cube('Contacts', {
     Organizations: {
       relationship: 'hasOne',
       sql: `${CUBE}.contactable_id = ${Organizations}.id AND ${CUBE}.contactable_type = 'Organization'`,
+    },
+
+    Taggings: {
+      relationship: 'hasMany',
+      sql: `${Taggings}.taggable_id = ${CUBE}.id AND ${Taggings}.taggable_type = 'Contact'`,
     },
 
     Users: {
@@ -139,16 +146,6 @@ cube('Contacts', {
     website: {
       sql: 'website',
       type: 'string',
-    },
-
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-    },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
     },
 
     currentSignInAt: {
