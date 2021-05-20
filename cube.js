@@ -2,7 +2,7 @@
 module.exports = {
   http: {
     cors: {
-      origin: [/\.uidu.local/, /\.uidu.dev$/, /localhost/],
+      origin: [/\.uidu.local/, /\.uidu.dev$/, /localhost/, /\.uidu.org$/],
     },
   },
   queryTransformer: (query, { securityContext }) => {
