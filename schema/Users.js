@@ -67,6 +67,17 @@ cube('Users', {
       },
     },
 
+    kind: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.kind = 1`, label: 'person' },
+          { sql: `${CUBE}.kind = 0`, label: 'lead' },
+        ],
+        else: { label: 'Unknown' },
+      },
+    },
+
     gender: {
       type: 'string',
       case: {

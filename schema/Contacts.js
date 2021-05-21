@@ -163,4 +163,10 @@ cube('Contacts', {
       type: 'time',
     },
   },
+
+  segments: {
+    real: {
+      sql: `${CUBE}.contactable_type = 'User' AND ${Users}.kind = 1 OR ${CUBE}.contactable_type = 'Organization'`,
+    },
+  },
 });
