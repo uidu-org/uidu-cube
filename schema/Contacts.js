@@ -69,7 +69,7 @@ cube('Contacts', {
     },
 
     avatar: {
-      sql: `${CUBE}.avatar_data->>"$.derivatives.small.id"`,
+      sql: `${CUBE}.avatar_data->>"$.derivatives.xsmall.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {
