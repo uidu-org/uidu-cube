@@ -27,15 +27,5 @@ cube('GrantMakers', {
       type: 'string',
       primaryKey: true,
     },
-
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-    },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
-    },
   },
 });
