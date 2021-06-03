@@ -38,11 +38,9 @@ cube('ProposalGrants', {
       case: {
         when: [
           { sql: `${CUBE}.status = 99`, label: 'discarded' },
-          { sql: `${CUBE}.status = 60`, label: 'lost' },
-          { sql: `${CUBE}.status = 50`, label: 'won' },
-          { sql: `${CUBE}.status = 40`, label: 'submitted' },
-          { sql: `${CUBE}.status = 30`, label: 'chosen' },
-          { sql: `${CUBE}.status = 20`, label: 'evaluated' },
+          { sql: `${CUBE}.status = 40`, label: 'lost' },
+          { sql: `${CUBE}.status = 30`, label: 'won' },
+          { sql: `${CUBE}.status = 20`, label: 'submitted' },
           { sql: `${CUBE}.status = 10`, label: 'saved' },
           { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
         ],

@@ -8,10 +8,10 @@
   "template": "docker",
   "templateVersion": "0.26.71",
   "devDependencies": {
-    "@cubejs-backend/cubestore-driver": "^0.27.14",
-    "@cubejs-backend/mysql-driver": "^0.27.14",
-    "@cubejs-backend/server": "^0.27.14",
-    "typescript": "^4.2.4"
+    "@cubejs-backend/cubestore-driver": "^0.27.29",
+    "@cubejs-backend/mysql-driver": "^0.27.26",
+    "@cubejs-backend/server": "^0.27.29",
+    "typescript": "^4.3.2"
   },
   "dependencies": {}
 }
