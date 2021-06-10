@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
+
 cube('DonationCampaigns', {
   sql: 'SELECT * FROM donation_campaigns',
 
@@ -11,7 +13,7 @@ cube('DonationCampaigns', {
     },
 
     Products: {
-      sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCamapaign'`,
+      sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCampaign'`,
       relationship: 'hasMany',
     },
 
@@ -30,10 +32,10 @@ cube('DonationCampaigns', {
 
   dimensions: {
     id: {
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
       shown: true,
+      sql: `${toGlobalId('DonationCampaign', `${CUBE}.id`)}`,
+      type: 'string',
+      primaryKey: true,
     },
 
     category: {
