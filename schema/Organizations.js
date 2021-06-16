@@ -46,6 +46,14 @@ cube('Organizations', {
       },
     },
 
+    website: {
+      sql: `${Contacts}.website`,
+      type: 'string',
+      meta: {
+        kind: 'url',
+      },
+    },
+
     fiscalCode: {
       sql: 'fiscal_code',
       type: 'string',
@@ -82,11 +90,6 @@ cube('Organizations', {
 
     vatCode: {
       sql: 'vat_code',
-      type: 'string',
-    },
-
-    website: {
-      sql: 'website',
       type: 'string',
     },
   },
