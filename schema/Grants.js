@@ -85,6 +85,21 @@ cube('Grants', {
       },
     },
 
+    status: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.status = 99`, label: 'discarded' },
+          { sql: `${CUBE}.status = 40`, label: 'approved' },
+          { sql: `${CUBE}.status = 30`, label: 'waiting_for_review' },
+          { sql: `${CUBE}.status = 20`, label: 'kept' },
+          { sql: `${CUBE}.status = 10`, label: 'received' },
+          { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
+      },
+    },
+
     expiresAt: {
       sql: 'expires_at',
       type: 'time',
@@ -107,6 +122,15 @@ cube('Grants', {
       meta: {
         kind: 'date',
       },
+    },
+  },
+
+  segments: {
+    monitoring: {
+      sql: `${CUBE}.status = 10`,
+    },
+    kept: {
+      sql: `${CUBE}.status > 10 AND ${CUBE}.status < 99`,
     },
   },
 });
