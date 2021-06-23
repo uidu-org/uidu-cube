@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Subscriptions', {
   sql: 'SELECT * FROM subscriptions',
@@ -26,10 +27,10 @@ cube('Subscriptions', {
 
   dimensions: {
     id: {
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
       shown: true,
+      sql: `${toGlobalId('Subscription', `${CUBE}.id`)}`,
+      type: 'string',
+      primaryKey: true,
     },
 
     stripeId: {
@@ -90,6 +91,23 @@ cube('Subscriptions', {
       type: 'time',
       meta: {
         kind: 'date',
+      },
+    },
+
+    stripeStatus: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.stripe_status = 90`, label: 'incomplete' },
+          { sql: `${CUBE}.stripe_status = 91`, label: 'incomplete_expired' },
+          { sql: `${CUBE}.stripe_status = 4`, label: 'unpaid' },
+          { sql: `${CUBE}.stripe_status = 3`, label: 'canceled' },
+          { sql: `${CUBE}.stripe_status = 2`, label: 'past_due' },
+          { sql: `${CUBE}.stripe_status = 1`, label: 'active' },
+          { sql: `${CUBE}.stripe_status = 0`, label: 'trialing' },
+          { sql: `${CUBE}.stripe_status IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
       },
     },
   },

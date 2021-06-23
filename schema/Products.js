@@ -1,7 +1,10 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Products', {
   sql: 'SELECT * FROM products',
+
+  extends: ActiveRecordModels,
 
   joins: {
     Skus: {
@@ -23,14 +26,15 @@ cube('Products', {
   measures: {
     count: {
       type: 'count',
-      drillMembers: [id, name, stripeId, createdByType, createdAt, updatedAt],
+      drillMembers: [id, name, stripeId, createdAt, updatedAt],
     },
   },
 
   dimensions: {
     id: {
-      sql: 'id',
-      type: 'number',
+      shown: true,
+      sql: `${toGlobalId('Product', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
@@ -74,19 +78,19 @@ cube('Products', {
       type: 'string',
     },
 
-    createdByType: {
-      sql: 'created_by_type',
+    kind: {
       type: 'string',
-    },
-
-    createdAt: {
-      sql: 'created_at',
-      type: 'time',
-    },
-
-    updatedAt: {
-      sql: 'updated_at',
-      type: 'time',
+      case: {
+        when: [
+          { sql: `${CUBE}.kind = 4`, label: 'service' },
+          { sql: `${CUBE}.kind = 3`, label: 'ticket' },
+          { sql: `${CUBE}.kind = 2`, label: 'good' },
+          { sql: `${CUBE}.kind = 1`, label: 'donation' },
+          { sql: `${CUBE}.kind = 0`, label: 'membership' },
+          { sql: `${CUBE}.kind IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
+      },
     },
   },
 
@@ -105,6 +109,9 @@ cube('Products', {
     },
     service: {
       sql: `${CUBE}.kind = 4`,
+    },
+    forStore: {
+      sql: `${CUBE}.kind IN (2, 4)`,
     },
   },
 });
