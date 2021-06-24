@@ -28,6 +28,11 @@ cube('Grants', {
       type: 'count',
       drillMembers: [id, name, createdAt, updatedAt],
     },
+
+    contribution: {
+      type: 'sum',
+      sql: 'contribution_max',
+    },
   },
 
   dimensions: {
