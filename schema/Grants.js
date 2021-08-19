@@ -82,6 +82,10 @@ cube('Grants', {
       type: 'string',
       case: {
         when: [
+          { sql: `${CUBE}.kind = 5`, label: 'donation' },
+          { sql: `${CUBE}.kind = 4`, label: 'contest' },
+          { sql: `${CUBE}.kind = 3`, label: 'at_the_counter' },
+          { sql: `${CUBE}.kind = 2`, label: 'public_notice' },
           { sql: `${CUBE}.kind = 1`, label: 'contribution' },
           { sql: `${CUBE}.kind = 0`, label: 'grant' },
           { sql: `${CUBE}.kind IS NULL`, label: 'unknown' },
