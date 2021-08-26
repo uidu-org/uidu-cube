@@ -1,7 +1,27 @@
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
+
 cube('Attendances', {
   sql: 'SELECT * FROM attendances',
 
-  joins: {},
+  extends: ActiveRecordModels,
+
+  joins: {
+    EventInstances: {
+      sql: `${CUBE}.attendable_id = ${Events}.id AND ${CUBE}.attendable_type = 'EventInstance'`,
+      relationship: 'belongsTo',
+    },
+
+    Contacts: {
+      sql: `${CUBE}.contact_id = ${Contacts}.id`,
+      relationship: 'belongsTo',
+    },
+
+    OrderItems: {
+      sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
+      relationship: 'belongsTo',
+    },
+  },
 
   measures: {
     count: {
@@ -11,35 +31,16 @@ cube('Attendances', {
   },
 
   dimensions: {
-    attendableType: {
-      sql: `attendable_type`,
-      type: `string`,
-    },
-
-    attenderType: {
-      sql: `attender_type`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('Attendance', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
-    },
-
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
-    },
-
     checkedInAt: {
-      sql: `checked_in_at`,
-      type: `time`,
+      sql: 'checked_in_at',
+      type: 'time',
     },
   },
 });
