@@ -8,7 +8,7 @@ cube('Attendances', {
 
   joins: {
     EventInstances: {
-      sql: `${CUBE}.attendable_id = ${Events}.id AND ${CUBE}.attendable_type = 'EventInstance'`,
+      sql: `${CUBE}.attendable_id = ${EventInstances}.id AND ${CUBE}.attendable_type = 'EventInstance'`,
       relationship: 'belongsTo',
     },
 

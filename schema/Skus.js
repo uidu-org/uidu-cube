@@ -11,6 +11,11 @@ cube('Skus', {
       sql: `${CUBE}.id = ${OrderItems}.sku_id`,
       relationship: 'hasMany',
     },
+
+    Products: {
+      sql: `${CUBE}.product_id = ${Products}.id`,
+      relationship: 'belongsTo',
+    },
   },
 
   measures: {

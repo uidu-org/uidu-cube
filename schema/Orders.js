@@ -52,5 +52,33 @@ cube('Orders', {
       sql: 'currency',
       type: 'string',
     },
+
+    itemsTotal: {
+      sql: 'items_total',
+      type: 'number',
+      format: 'currency',
+      meta: {
+        kind: 'currency',
+      },
+    },
+
+    itemsCount: {
+      sql: 'items_count',
+      type: 'number',
+    },
+
+    status: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.status = 99`, label: 'discarded' },
+          { sql: `${CUBE}.status = 90`, label: 'refunded' },
+          { sql: `${CUBE}.status = 50`, label: 'paid' },
+          { sql: `${CUBE}.status = 10`, label: 'initialized' },
+          { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
+      },
+    },
   },
 });

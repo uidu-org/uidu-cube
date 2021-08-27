@@ -60,7 +60,7 @@ cube('Organizations', {
     },
 
     avatar: {
-      sql: `${Contacts}.avatar_data->>"$.derivatives.small.id"`,
+      sql: `${Contacts}.avatar_data->>"$.derivatives.xsmall.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {
