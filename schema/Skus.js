@@ -43,8 +43,13 @@ cube('Skus', {
       primaryKey: true,
     },
 
-    stripeAttributes: {
-      sql: 'stripe_attributes',
+    name: {
+      sql: 'name',
+      type: 'string',
+    },
+
+    description: {
+      sql: 'name',
       type: 'string',
     },
 
