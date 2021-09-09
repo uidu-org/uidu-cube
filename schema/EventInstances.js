@@ -38,8 +38,8 @@ cube('EventInstances', {
       primaryKey: true,
     },
 
-    beginTime: {
-      sql: 'begin_time',
+    startTime: {
+      sql: 'start_time',
       type: 'string',
     },
 
@@ -48,18 +48,18 @@ cube('EventInstances', {
       type: 'string',
     },
 
-    beginsAt: {
-      sql: 'begins_at',
+    startDate: {
+      sql: 'start_date',
+      type: 'time',
+    },
+
+    endDate: {
+      sql: 'end_date',
       type: 'time',
     },
 
     cancelledAt: {
       sql: 'cancelled_at',
-      type: 'time',
-    },
-
-    finishesAt: {
-      sql: 'finishes_at',
       type: 'time',
     },
 
