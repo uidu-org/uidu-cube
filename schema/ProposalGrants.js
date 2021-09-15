@@ -41,6 +41,8 @@ cube('ProposalGrants', {
           { sql: `${CUBE}.status = 40`, label: 'lost' },
           { sql: `${CUBE}.status = 30`, label: 'won' },
           { sql: `${CUBE}.status = 20`, label: 'submitted' },
+          { sql: `${CUBE}.status = 18`, label: 'ready' },
+          { sql: `${CUBE}.status = 15`, label: 'approved' },
           { sql: `${CUBE}.status = 10`, label: 'saved' },
           { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
         ],
