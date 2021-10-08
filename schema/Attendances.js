@@ -12,13 +12,13 @@ cube('Attendances', {
       relationship: 'belongsTo',
     },
 
-    Contacts: {
-      sql: `${CUBE}.contact_id = ${Contacts}.id`,
+    OrderItems: {
+      sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
       relationship: 'belongsTo',
     },
 
-    OrderItems: {
-      sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
+    Contacts: {
+      sql: `${CUBE}.contact_id = ${Contacts}.id`,
       relationship: 'belongsTo',
     },
   },
@@ -41,6 +41,12 @@ cube('Attendances', {
     checkedInAt: {
       sql: 'checked_in_at',
       type: 'time',
+    },
+  },
+
+  segments: {
+    paid: {
+      sql: `${Orders}.status = 50`,
     },
   },
 });

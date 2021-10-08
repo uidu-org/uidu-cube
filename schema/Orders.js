@@ -81,4 +81,10 @@ cube('Orders', {
       },
     },
   },
+
+  segments: {
+    paid: {
+      sql: `${CUBE}.status = 50`,
+    },
+  },
 });
