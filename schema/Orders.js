@@ -67,6 +67,11 @@ cube('Orders', {
       type: 'number',
     },
 
+    number: {
+      sql: 'number',
+      type: 'string',
+    },
+
     status: {
       type: 'string',
       case: {
