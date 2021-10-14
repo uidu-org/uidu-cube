@@ -79,6 +79,8 @@ cube('Orders', {
           { sql: `${CUBE}.status = 99`, label: 'discarded' },
           { sql: `${CUBE}.status = 90`, label: 'refunded' },
           { sql: `${CUBE}.status = 50`, label: 'paid' },
+          { sql: `${CUBE}.status = 40`, label: 'placed' },
+          { sql: `${CUBE}.status = 20`, label: 'expired' },
           { sql: `${CUBE}.status = 10`, label: 'initialized' },
           { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
         ],
