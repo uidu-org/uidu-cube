@@ -1,72 +1,55 @@
-cube(`Services`, {
-  sql: `SELECT * FROM services`,
+/* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
-  joins: {},
+cube('Services', {
+  sql: 'SELECT * FROM services',
+
+  extends: ActiveRecordModels,
+
+  joins: {
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
+
+    ServiceInstances: {
+      relationship: 'hasMany',
+      sql: `${ServiceInstances}.service_id = ${CUBE}.id`,
+    },
+  },
 
   measures: {
     count: {
-      type: `count`,
+      type: 'count',
       drillMembers: [id, name, createdAt, updatedAt],
     },
   },
 
   dimensions: {
-    bodyData: {
-      sql: `body_data`,
-      type: `string`,
-    },
-
-    cover: {
-      sql: `cover`,
-      type: `string`,
-    },
-
-    coverData: {
-      sql: `cover_data`,
-      type: `string`,
-    },
-
-    description: {
-      sql: `description`,
-      type: `string`,
-    },
-
     id: {
-      sql: `id`,
-      type: `number`,
+      shown: true,
+      sql: `${toGlobalId('Service', `${CUBE}.id`)}`,
+      type: 'string',
       primaryKey: true,
     },
 
+    cover: {
+      sql: `${CUBE}.cover_data->>"$.derivatives.small.id"`,
+      type: 'string',
+      format: 'imageUrl',
+      meta: {
+        kind: 'cover',
+      },
+    },
+
     name: {
-      sql: `name`,
-      type: `string`,
+      sql: 'name',
+      type: 'string',
     },
 
-    recurring: {
-      sql: `recurring`,
-      type: `string`,
-    },
-
-    createdAt: {
-      sql: `created_at`,
-      type: `time`,
-    },
-
-    updatedAt: {
-      sql: `updated_at`,
-      type: `time`,
-    },
-
-    beginsAt: {
-      sql: `begins_at`,
-      type: `time`,
-    },
-
-    finishesAt: {
-      sql: `finishes_at`,
-      type: `time`,
+    publishedAt: {
+      sql: 'published_at',
+      type: 'time',
     },
   },
-
-  dataSource: `default`,
 });
