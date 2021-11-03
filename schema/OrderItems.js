@@ -21,6 +21,11 @@ cube('OrderItems', {
       sql: `${Attendances}.order_item_id = ${CUBE}.id`,
       relationship: 'hasMany',
     },
+
+    Bookings: {
+      sql: `${Bookings}.order_item_id = ${CUBE}.id`,
+      relationship: 'hasMany',
+    },
   },
 
   measures: {

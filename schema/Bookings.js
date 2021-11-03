@@ -7,13 +7,18 @@ cube('Bookings', {
   extends: ActiveRecordModels,
 
   joins: {
-    Contacts: {
-      sql: `${CUBE}.contact_id = ${Contacts}.id`,
+    ServiceInstances: {
+      sql: `${CUBE}.bookable_id = ${ServiceInstances}.id AND ${CUBE}.bookable_type = 'ServiceInstance'`,
       relationship: 'belongsTo',
     },
 
-    Services: {
-      sql: `${CUBE}.id = ${Services}.id`,
+    OrderItems: {
+      sql: `${CUBE}.order_item_id = ${OrderItems}.id`,
+      relationship: 'belongsTo',
+    },
+
+    Contacts: {
+      sql: `${CUBE}.contact_id = ${Contacts}.id`,
       relationship: 'belongsTo',
     },
 
