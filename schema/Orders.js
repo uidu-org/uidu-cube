@@ -87,6 +87,12 @@ cube('Orders', {
         else: { label: 'unknown' },
       },
     },
+
+    contactEmail: {
+      sql: `${Contacts}.email`,
+      type: 'email',
+      label: 'Contact Email',
+    },
   },
 
   segments: {
