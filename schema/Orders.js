@@ -90,8 +90,10 @@ cube('Orders', {
 
     contactEmail: {
       sql: `${Contacts}.email`,
-      type: 'email',
-      label: 'Contact Email',
+      type: 'string',
+      meta: {
+        kind: 'email',
+      },
     },
   },
 
