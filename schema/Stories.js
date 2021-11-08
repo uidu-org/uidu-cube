@@ -11,6 +11,11 @@ cube('Stories', {
       relationship: 'belongsTo',
       sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
     },
+
+    VisitEvents: {
+      relationship: 'hasMany',
+      sql: `JSON_UNQUOTE(JSON_EXTRACT(${VisitEvents}.properties, "$.gid")) = ${CUBE.id}`,
+    },
   },
 
   measures: {
