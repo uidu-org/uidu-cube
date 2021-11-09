@@ -4,8 +4,6 @@ import { toGlobalId } from './utils';
 cube('VisitEvents', {
   sql: 'SELECT * FROM visit_events',
 
-  extends: ActiveRecordModels,
-
   joins: {
     Visits: {
       sql: `${CUBE}.visit_id = ${Visits}.id`,
@@ -30,6 +28,16 @@ cube('VisitEvents', {
 
     name: {
       sql: 'name',
+      type: 'string',
+    },
+
+    gid: {
+      sql: `${VisitEvents}.properties->>"$.gid"`,
+      type: 'string',
+    },
+
+    kind: {
+      sql: `${VisitEvents}.properties->>"$.kind"`,
       type: 'string',
     },
 
