@@ -97,11 +97,6 @@ cube('Donations', {
       },
     },
 
-    donationCampaignId: {
-      sql: 'donation_campaign_id',
-      type: 'number',
-    },
-
     paymentMethod: {
       type: 'string',
       case: {
@@ -146,6 +141,12 @@ cube('Donations', {
       meta: {
         kind: 'date',
       },
+    },
+  },
+
+  segments: {
+    paid: {
+      sql: `${CUBE}.status = 50`,
     },
   },
 });
