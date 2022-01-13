@@ -2,6 +2,16 @@ cube(`Campaigns`, {
   sql: `SELECT * FROM campaigns`,
 
   joins: {
+    Workspaces: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+    },
+
+    Lists: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.list_id = ${Lists}.id`,
+    },
+
     Audiences: {
       sql: `${CUBE}.audience_id = ${Audiences}.id`,
       relationship: `belongsTo`,
@@ -113,6 +123,31 @@ cube(`Campaigns`, {
     scheduledAt: {
       sql: `scheduled_at`,
       type: `time`,
+    },
+
+    status: {
+      type: 'string',
+      case: {
+        when: [
+          { sql: `${CUBE}.status = 10`, label: 'draft' },
+          { sql: `${CUBE}.status = 20`, label: 'scheduled' },
+          { sql: `${CUBE}.status = 30`, label: 'sent' },
+          { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
+        ],
+        else: { label: 'unknown' },
+      },
+    },
+  },
+
+  segments: {
+    draft: {
+      sql: `${CUBE}.status = 10`,
+    },
+    scheduled: {
+      sql: `${CUBE}.status = 20`,
+    },
+    sent: {
+      sql: `${CUBE}.status = 30`,
     },
   },
 });
