@@ -141,5 +141,8 @@ cube('Grants', {
     kept: {
       sql: `${CUBE}.status > 10 AND ${CUBE}.status < 99`,
     },
+    active: {
+      sql: `${CUBE}.status > 20 AND ${CUBE}.status < 99`,
+    },
   },
 });
