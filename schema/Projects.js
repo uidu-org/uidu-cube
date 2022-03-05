@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { toGlobalId } from './utils';
 
-cube('Forms', {
-  sql: 'SELECT * FROM forms',
+cube('Projects', {
+  sql: 'SELECT * FROM projects',
 
   extends: ActiveRecordModels,
 
@@ -11,11 +11,6 @@ cube('Forms', {
       relationship: 'belongsTo',
       sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
     },
-
-    FormResponses: {
-      relationship: 'hasMany',
-      sql: `${FormResponses}.form_id = ${CUBE}.id`,
-    },
   },
 
   measures: {
@@ -23,17 +18,12 @@ cube('Forms', {
       type: 'count',
       drillMembers: [id, name, createdAt, updatedAt],
     },
-
-    questionsCount: {
-      sql: 'questions_count',
-      type: 'sum',
-    },
   },
 
   dimensions: {
     id: {
       shown: true,
-      sql: `${toGlobalId('Form', `${CUBE}.id`)}`,
+      sql: `${toGlobalId('Proposal', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
     },
@@ -43,22 +33,9 @@ cube('Forms', {
       type: 'string',
     },
 
-    formableType: {
-      sql: 'formable_type',
-      type: 'string',
-    },
-
     name: {
       sql: 'name',
       type: 'string',
-    },
-
-    publishedAt: {
-      sql: 'published_at',
-      type: 'time',
-      meta: {
-        kind: 'date',
-      },
     },
   },
 });
