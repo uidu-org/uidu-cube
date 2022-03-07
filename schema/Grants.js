@@ -17,9 +17,9 @@ cube('Grants', {
       sql: `${CUBE}.grant_maker_id = ${GrantMakers}.id`,
     },
 
-    GrantCompetences: {
+    AdministrativeCompetences: {
       relationship: 'hasMany',
-      sql: `${CUBE}.id = ${GrantCompetences}.competent_id AND ${GrantCompetences}.competent_type = 'Grant'`,
+      sql: `${CUBE}.id = ${AdministrativeCompetences}.competent_id AND ${AdministrativeCompetences}.competent_type = 'Grant'`,
     },
   },
 
