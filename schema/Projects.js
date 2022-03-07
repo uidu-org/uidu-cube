@@ -37,5 +37,10 @@ cube('Projects', {
       sql: 'name',
       type: 'string',
     },
+
+    domain: {
+      sql: 'domain',
+      type: 'string',
+    },
   },
 });
