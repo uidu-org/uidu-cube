@@ -6,7 +6,12 @@ cube('Fields', {
 
   extends: ActiveRecordModels,
 
-  joins: {},
+  joins: {
+    Products: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.fieldable_id = ${Products}.id AND ${CUBE}.fieldable_type = "Product"`,
+    },
+  },
 
   measures: {
     count: {
