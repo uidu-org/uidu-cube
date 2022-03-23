@@ -109,11 +109,6 @@ cube(`Accounts`, {
       type: `string`,
     },
 
-    provider: {
-      sql: `provider`,
-      type: `string`,
-    },
-
     resetPasswordToken: {
       sql: `reset_password_token`,
       type: `string`,
@@ -126,16 +121,6 @@ cube(`Accounts`, {
 
     stripeId: {
       sql: `stripe_id`,
-      type: `string`,
-    },
-
-    tokens: {
-      sql: `tokens`,
-      type: `string`,
-    },
-
-    uid: {
-      sql: `uid`,
       type: `string`,
     },
 
