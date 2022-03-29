@@ -6,11 +6,6 @@ cube('Plans', {
   extends: ActiveRecordModels,
 
   joins: {
-    SubscriptionItems: {
-      sql: `${CUBE}.id = ${SubscriptionItems}.plan_id`,
-      relationship: 'hasMany',
-    },
-
     Products: {
       sql: `${CUBE}.product_id = ${Products}.id`,
       relationship: 'belongsTo',
