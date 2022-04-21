@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('Plans', {
   sql: 'SELECT * FROM plans',
@@ -32,14 +33,9 @@ cube('Plans', {
   dimensions: {
     id: {
       shown: true,
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
-    },
-
-    currency: {
-      sql: 'currency',
+      sql: `${toGlobalId('Plan', `${CUBE}.id`)}`,
       type: 'string',
+      primaryKey: true,
     },
 
     description: {
@@ -47,30 +43,9 @@ cube('Plans', {
       type: 'string',
     },
 
-    amount: {
-      sql: 'amount',
-      type: 'number',
-      format: 'currency',
-      meta: {
-        kind: 'currency',
-      },
-    },
-
     name: {
       sql: 'name',
       type: 'string',
-    },
-
-    interval: {
-      type: 'string',
-      case: {
-        when: [
-          { sql: `${CUBE}.interval = 3`, label: 'year' },
-          { sql: `${CUBE}.interval = 2`, label: 'month' },
-          { sql: `${CUBE}.interval = 1`, label: 'week' },
-          { sql: `${CUBE}.interval = 0`, label: 'day' },
-        ],
-      },
     },
 
     stripeId: {
