@@ -11,8 +11,8 @@ cube('SubscriptionItems', {
       relationship: 'belongsTo',
     },
 
-    Plans: {
-      sql: `${CUBE}.plan_id = ${Plans}.id`,
+    Prices: {
+      sql: `${CUBE}.price_id = ${Prices}.id`,
       relationship: 'belongsTo',
     },
   },

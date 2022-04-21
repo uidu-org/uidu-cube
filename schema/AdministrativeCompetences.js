@@ -1,5 +1,5 @@
-cube(`GrantCompetences`, {
-  sql: `SELECT * FROM grant_competences`,
+cube(`AdministrativeCompetences`, {
+  sql: `SELECT * FROM administrative_competences`,
 
   joins: {
     Grants: {
