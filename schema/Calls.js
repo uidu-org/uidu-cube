@@ -9,7 +9,7 @@ cube('Calls', {
   joins: {
     Workspaces: {
       relationship: 'belongsTo',
-      sql: `${CUBE}.owner_id = ${Workspaces}.id AND ${CUBE}.ower_type = 'Workspace'`,
+      sql: `${CUBE}.owner_id = ${Workspaces}.id AND ${CUBE}.owner_type = 'Workspace'`,
     },
   },
 
