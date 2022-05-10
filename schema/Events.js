@@ -9,7 +9,7 @@ cube('Events', {
   joins: {
     Workspaces: {
       relationship: 'belongsTo',
-      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
+      sql: `${CUBE}.owner_id = ${Workspaces}.id AND ${CUBE}.ower_type = 'Workspace'`,
     },
 
     EventInstances: {
