@@ -7,6 +7,11 @@ cube('Grants', {
   extends: ActiveRecordModels,
 
   joins: {
+    Kinds: {
+      relationship: 'belongsTo',
+      sql: `${CUBE}.kind_id = ${Kinds}.id`,
+    },
+
     Workspaces: {
       relationship: 'belongsTo',
       sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
@@ -78,21 +83,21 @@ cube('Grants', {
       type: 'number',
     },
 
-    kind: {
-      type: 'string',
-      case: {
-        when: [
-          { sql: `${CUBE}.kind = 5`, label: 'is_donation' },
-          { sql: `${CUBE}.kind = 4`, label: 'is_contest' },
-          { sql: `${CUBE}.kind = 3`, label: 'is_at_the_counter' },
-          { sql: `${CUBE}.kind = 2`, label: 'is_public_notice' },
-          { sql: `${CUBE}.kind = 1`, label: 'is_contribution' },
-          { sql: `${CUBE}.kind = 0`, label: 'is_grant' },
-          { sql: `${CUBE}.kind IS NULL`, label: 'unknown' },
-        ],
-        else: { label: 'unknown' },
-      },
-    },
+    // kind: {
+    //   type: 'string',
+    //   case: {
+    //     when: [
+    //       { sql: `${CUBE}.kind = 5`, label: 'is_donation' },
+    //       { sql: `${CUBE}.kind = 4`, label: 'is_contest' },
+    //       { sql: `${CUBE}.kind = 3`, label: 'is_at_the_counter' },
+    //       { sql: `${CUBE}.kind = 2`, label: 'is_public_notice' },
+    //       { sql: `${CUBE}.kind = 1`, label: 'is_contribution' },
+    //       { sql: `${CUBE}.kind = 0`, label: 'is_grant' },
+    //       { sql: `${CUBE}.kind IS NULL`, label: 'unknown' },
+    //     ],
+    //     else: { label: 'unknown' },
+    //   },
+    // },
 
     status: {
       type: 'string',
