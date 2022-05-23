@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 
+import { toGlobalId } from './utils';
+
 cube(`Kinds`, {
   sql: `SELECT * FROM kinds`,
 
