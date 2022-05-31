@@ -77,6 +77,11 @@ cube('Stories', {
       type: 'string',
     },
 
+    slug: {
+      sql: 'slug',
+      type: 'string',
+    },
+
     seoKeyword: {
       sql: 'seo_keyword',
       type: 'string',
