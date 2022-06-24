@@ -32,7 +32,7 @@ cube('Applications', {
   measures: {
     count: {
       type: 'count',
-      drillMembers: [id, createdAt, updatedAt],
+      drillMembers: [id, status, createdAt, updatedAt],
     },
   },
 
@@ -42,6 +42,11 @@ cube('Applications', {
       sql: `${toGlobalId('Application', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
+    },
+
+    status: {
+      sql: 'aasm_state',
+      type: 'string',
     },
   },
 });
