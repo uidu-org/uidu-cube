@@ -49,4 +49,10 @@ cube('Applications', {
       type: 'string',
     },
   },
+
+  segments: {
+    completed: {
+      sql: `${CUBE}.aasm_state = 'completed'`,
+    },
+  },
 });
