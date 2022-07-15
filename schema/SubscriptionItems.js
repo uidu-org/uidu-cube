@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { toGlobalId } from './utils';
 
 cube('SubscriptionItems', {
   sql: 'SELECT * FROM subscription_items',
@@ -23,6 +24,12 @@ cube('SubscriptionItems', {
       drillMembers: [id, createdAt, updatedAt, prorationDate],
     },
 
+    amount: {
+      sql: `${Prices}.unit_amount * ${quantity}`,
+      type: 'number',
+      format: 'currency',
+    },
+
     quantity: {
       sql: 'quantity',
       type: 'sum',
@@ -31,10 +38,10 @@ cube('SubscriptionItems', {
 
   dimensions: {
     id: {
-      sql: 'id',
-      type: 'number',
-      primaryKey: true,
       shown: true,
+      sql: `${toGlobalId('SubscriptionItem', `${CUBE}.id`)}`,
+      type: 'string',
+      primaryKey: true,
     },
 
     preferences: {

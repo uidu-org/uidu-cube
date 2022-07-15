@@ -12,10 +12,10 @@ cube('DonationCampaigns', {
       relationship: 'hasMany',
     },
 
-    Products: {
-      sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCampaign'`,
-      relationship: 'hasMany',
-    },
+    // Products: {
+    //   sql: `${CUBE}.id = ${Products}.productable_id AND ${Products}.productable_type = 'DonationCampaign'`,
+    //   relationship: 'hasMany',
+    // },
 
     Workspaces: {
       relationship: 'belongsTo',

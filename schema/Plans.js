@@ -11,6 +11,11 @@ cube('Plans', {
       sql: `${CUBE}.product_id = ${Products}.id`,
       relationship: 'belongsTo',
     },
+
+    Prices: {
+      sql: `${CUBE}.id = ${Prices}.priceable_id AND ${Prices}.priceable_type = 'Plan'`,
+      relationship: 'hasMany',
+    },
   },
 
   measures: {

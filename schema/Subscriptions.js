@@ -23,6 +23,11 @@ cube('Subscriptions', {
       type: 'count',
       drillMembers: [id, stripeId, createdAt, updatedAt],
     },
+
+    amount: {
+      sql: `${itemsAmount}`,
+      type: 'sum',
+    },
   },
 
   dimensions: {
@@ -109,6 +114,21 @@ cube('Subscriptions', {
         ],
         else: { label: 'unknown' },
       },
+    },
+
+    itemsAmount: {
+      sql: `${SubscriptionItems.amount}`,
+      type: 'number',
+      subQuery: true,
+    },
+  },
+
+  segments: {
+    active: {
+      sql: `${CUBE}.stripe_status = 1`,
+    },
+    canceled: {
+      sql: `${CUBE}.stripe_status = 3`,
     },
   },
 });

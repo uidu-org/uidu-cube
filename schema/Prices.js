@@ -27,6 +27,15 @@ cube(`Prices`, {
       type: `count`,
       drillMembers: [id, stripeId, createdAt, updatedAt],
     },
+
+    amount: {
+      type: `sum`,
+      sql: 'unit_amount',
+      format: 'currency',
+      meta: {
+        kind: 'currency',
+      },
+    },
   },
 
   dimensions: {
