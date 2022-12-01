@@ -9,7 +9,7 @@ cube('Organizations', {
   joins: {
     Contacts: {
       relationship: 'hasOne',
-      sql: `${Organizations}.id = ${Contacts}.contactable_id AND ${Contacts}.contactable_type = 'Organization'`,
+      sql: `${CUBE}.id = ${Contacts}.contactable_id AND ${Contacts}.contactable_type = 'Organization'`,
     },
 
     // Workspaces: {
@@ -39,7 +39,7 @@ cube('Organizations', {
     },
 
     email: {
-      sql: `${Contacts}.email`,
+      sql: `${Contacts.email}`,
       type: 'string',
       meta: {
         kind: 'email',
@@ -47,7 +47,7 @@ cube('Organizations', {
     },
 
     website: {
-      sql: `${Contacts}.website`,
+      sql: `${Contacts.website}`,
       type: 'string',
       meta: {
         kind: 'url',
@@ -60,7 +60,7 @@ cube('Organizations', {
     },
 
     avatar: {
-      sql: `${Contacts}.avatar_data->>"$.derivatives.xsmall.id"`,
+      sql: `${Contacts.avatarData}->>"$.derivatives.xsmall.id"`,
       type: 'string',
       format: 'imageUrl',
       meta: {
@@ -74,7 +74,7 @@ cube('Organizations', {
     },
 
     phone: {
-      sql: `${Contacts}.phone`,
+      sql: `${Contacts.phone}`,
       type: 'string',
     },
 
