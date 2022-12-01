@@ -35,7 +35,7 @@ cube('Users', {
     },
 
     avatar: {
-      sql: `${Contacts}.avatar_data->>"$.derivatives.xsmall.id"`,
+      sql: `${Contacts.avatar}`,
       type: 'string',
       format: 'imageUrl',
       meta: {
@@ -44,7 +44,7 @@ cube('Users', {
     },
 
     email: {
-      sql: `${Contacts}.email`,
+      sql: `${Contacts.email}`,
       type: 'string',
       meta: {
         kind: 'email',

@@ -46,7 +46,7 @@ cube('Attendances', {
 
   segments: {
     paid: {
-      sql: `${Orders}.status = 50`,
+      sql: `${Orders.status} = 50`,
     },
   },
 });

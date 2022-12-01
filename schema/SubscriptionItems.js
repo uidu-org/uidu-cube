@@ -25,7 +25,7 @@ cube('SubscriptionItems', {
     },
 
     amount: {
-      sql: `${Prices}.unit_amount * ${quantity}`,
+      sql: `${Prices.unitAmount} * ${quantity}`,
       type: 'number',
       format: 'currency',
     },
