@@ -7,13 +7,13 @@ cube('ListSubscriptions', {
   extends: ActiveRecordModels,
 
   joins: {
-    Workspaces: {
-      relationship: 'belongsTo',
-      sql: `${CUBE}.workspace_id = ${Workspaces}.id`,
-    },
-
     Lists: {
       sql: `${CUBE}.list_id = ${Lists}.id`,
+      relationship: 'belongsTo',
+    },
+
+    Contacts: {
+      sql: `${CUBE}.contact_id = ${Contacts}.id`,
       relationship: 'belongsTo',
     },
   },
@@ -31,6 +31,12 @@ cube('ListSubscriptions', {
       sql: `${toGlobalId('ListSubscription', `${CUBE}.id`)}`,
       type: 'string',
       primaryKey: true,
+    },
+  },
+
+  segments: {
+    active: {
+      sql: `${CUBE}.discarded_at = NULL`,
     },
   },
 });

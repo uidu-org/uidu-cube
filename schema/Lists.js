@@ -8,8 +8,8 @@ cube('Lists', {
     },
 
     Campaigns: {
-      relationship: 'belongsTo',
-      sql: `${CUBE}.campaign_id = ${Campaigns}.id`,
+      sql: `${CUBE}.id = ${Campaigns}.list_id`,
+      relationship: 'hasMany',
     },
 
     ListSubscriptions: {
