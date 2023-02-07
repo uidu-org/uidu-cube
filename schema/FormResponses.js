@@ -52,7 +52,7 @@ cube('FormResponses', {
       type: 'string',
       case: {
         when: [
-          { sql: `${CUBE}.status = 99`, label: 'discarded' },
+          { sql: `${CUBE}.status = 99`, label: 'abandoned' },
           { sql: `${CUBE}.status = 50`, label: 'completed' },
           { sql: `${CUBE}.status = 10`, label: 'initialized' },
           { sql: `${CUBE}.status IS NULL`, label: 'unknown' },
@@ -64,7 +64,7 @@ cube('FormResponses', {
 
   segments: {
     completed: {
-      sql: `${CUBE}.status = 50`,
+      sql: `${CUBE}.status = 50 AND ${CUBE}.discarded_at IS NULL`,
     },
   },
 });
